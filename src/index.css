@@ -1,15 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
   /* 定義品牌主題字體 */
-  --font-sans: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans:
+    "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
 
   /* 定義專案專屬色彩 */
-  --color-brand-orange: #F97316;
-  --color-brand-cream: #FAF7F2;
-  --color-brand-slate: #1E293B;
-  --color-brand-orange-hover: #EA580C;
+  --color-brand-orange: #f97316;
+  --color-brand-cream: #faf7f2;
+  --color-brand-slate: #1e293b;
+  --color-brand-orange-hover: #ea580c;
 }
 
 body {
@@ -18,4 +20,8 @@ body {
   color: var(--color-brand-slate);
   margin: 0;
   padding: 0;
+}
+
+@utility container-layout {
+  @apply max-w-6xl mx-auto px-4 sm:px-6;
 }
