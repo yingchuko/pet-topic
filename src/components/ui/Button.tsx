@@ -1,15 +1,16 @@
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "option";
+  selected?: boolean;
   size?: "sm" | "md" | "lg";
-  asChild?: boolean;
   href?: string;
   children: React.ReactNode;
 }
 
 export const Button = ({
   variant = "primary",
+  selected = false,
   size = "md",
   href,
   children,
@@ -18,7 +19,7 @@ export const Button = ({
 }: ButtonProps) => {
   // 基礎樣式
   const baseStyles =
-    "inline-flex items-center justify-center font-extrabold transition cursor-pointer group rounded-full";
+    "inline-flex items-center font-extrabold transition cursor-pointer group rounded-full justify-center";
 
   // 尺寸變體
   const sizeStyles = {
@@ -30,14 +31,19 @@ export const Button = ({
   // 風格變體
   const variantStyles = {
     primary:
-      "bg-brand-orange hover:bg-brand-orange-hover text-white shadow-lg shadow-orange-500/20",
-    secondary:
-      "bg-white hover:bg-slate-50 text-slate-700 border border-slate-200",
+      "bg-orange hover:bg-orange-hover text-white shadow-lg shadow-orange-500/20",
+    secondary: "bg-cream hover:bg-orange-100/60 text-slate-700",
     outline:
-      "border border-slate-200 text-slate-700 hover:border-brand-orange hover:text-brand-orange bg-white",
+      "border border-slate-200 text-slate-700 hover:border-orange hover:text-orange bg-white",
+    option: `w-full p-4 border transition-all !justify-between font-semibold ${
+      selected
+        ? "border-orange bg-orange-100/50 text-slate-900 font-bold"
+        : "border-orange-100/80 bg-cream/40 hover:bg-cream text-slate-700"
+    }`,
   };
 
-  const combinedClasses = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`;
+  const currentSizeClass = variant === "option" ? "" : sizeStyles[size];
+  const combinedClasses = `${baseStyles} ${variantStyles[variant]} ${currentSizeClass} ${className}`;
 
   // 如果有傳入 href，渲染為 <a> 標籤，否則渲染為 <button>
   if (href) {

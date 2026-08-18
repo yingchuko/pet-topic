@@ -14,7 +14,7 @@ export const Hero = () => {
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.15]">
             Happier bowls, <br />
-            <span className="text-brand-orange">healthier companions.</span>
+            <span className="text-orange">healthier companions.</span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
@@ -50,7 +50,7 @@ export const Hero = () => {
             </div>
 
             <div className="absolute -bottom-4 -left-2 sm:-left-12 bg-white/95 backdrop-blur-sm border border-orange-200 p-4 rounded-4xl flex items-center gap-3 animate-fade-in">
-              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-brand-orange">
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange">
                 <PawPrint />
               </div>
               <div>
