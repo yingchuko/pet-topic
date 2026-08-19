@@ -8,6 +8,10 @@ interface AppState {
   isCartOpen: boolean;
   quizAnswers: Record<number, number>; // key: 問題的 Index, value: 選項的 Index
 
+  // --- 計算屬性 (Getters) ---
+  getTotalItems: () => number;
+  getSubtotal: () => number;
+
   // --- 操作方法 (Actions) ---
   addToCart: (product: Product, quantity?: number) => void;
   updateQuantity: (productId: string, delta: number) => void;
@@ -19,11 +23,24 @@ interface AppState {
 }
 
 // 2. 建立 Zustand Store
-export const useStore = create<AppState>((set) => ({
+export const useStore = create<AppState>((set, get) => ({
   // --- 初期狀態 ---
   cart: [],
   isCartOpen: false,
   quizAnswers: {},
+
+  // --- 計算屬性 Getter ---
+  // 即時計算購物車內所有商品的數量總和
+  getTotalItems: () => {
+    return get().cart.reduce((sum, item) => sum + item.quantity, 0);
+  },
+
+  getSubtotal: () => {
+    return get().cart.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0,
+    );
+  },
 
   // --- 購物車 Actions 邏輯 ---
 

@@ -5,6 +5,7 @@ import { useStore } from "../store/useStore";
 import { QUIZ_QUESTIONS } from "../data/mockData";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
+import { ProgressBar } from "./ui/ProgressBar";
 
 export const QuizCard = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -56,14 +57,7 @@ export const QuizCard = () => {
             </div>
 
             {/* 進度條 */}
-            <div className="w-full h-2 bg-orange-100/30 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-orange rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progressPercent}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
+            <ProgressBar progress={progressPercent} />
           </div>
 
           <AnimatePresence mode="wait">
@@ -121,7 +115,7 @@ export const QuizCard = () => {
                   disabled={quizAnswers[currentQuestion.id] === undefined}
                   variant="primary"
                   size="lg"
-                  className="!w-full py-4"
+                  className="!w-full py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next question
                 </Button>

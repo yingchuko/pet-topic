@@ -2,6 +2,8 @@ import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { QuizCard } from "./components/QuizCard";
 import { NutritionChart } from "./components/NutritionChart";
+import { ProductList } from "./components/ProductList";
+import { CartDrawer } from "./components/CartDrawer";
 
 export default function App() {
   return (
@@ -11,7 +13,9 @@ export default function App() {
         <Hero />
         <QuizCard />
         <NutritionChart />
+        <ProductList />
       </main>
+      <CartDrawer />
     </div>
   );
 }

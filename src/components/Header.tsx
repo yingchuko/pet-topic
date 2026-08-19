@@ -3,10 +3,8 @@ import { useStore } from "../store/useStore";
 import { Button } from "./ui/Button";
 
 export const Header = () => {
-  const cart = useStore((state) => state.cart);
   const toggleCart = useStore((state) => state.toggleCart);
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
+  const totalItems = useStore((state) => state.getTotalItems());
   return (
     <header className="sticky top-0 z-30 bg-cream/80 backdrop-blur-md border-b border-slate-200/50 transition-all">
       <div className="container-layout h-20 flex items-center justify-between">

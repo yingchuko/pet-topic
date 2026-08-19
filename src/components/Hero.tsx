@@ -1,6 +1,7 @@
 import { Sparkles, ArrowRight, PawPrint } from "lucide-react";
 import { Button } from "./ui/Button";
 import { Badge } from "./ui/Badge";
+import HeroPets from "../assets/images/hero-pets.png";
 
 export const Hero = () => {
   return (
@@ -43,13 +44,13 @@ export const Hero = () => {
           <div className="relative mx-auto max-w-md lg:max-w-none">
             <div className="aspect-4/3 sm:aspect-square rounded-4xl overflow-hidden shadow-xl border-4 border-white">
               <img
-                src="https://images.unsplash.com/photo-1625316708582-7c38734be31d?q=80&w=987&auto=format&fit=crop"
+                src={HeroPets}
                 alt="Happy Dog"
                 className="w-full h-full object-cover"
               />
             </div>
 
-            <div className="absolute -bottom-4 -left-2 sm:-left-12 bg-white/95 backdrop-blur-sm border border-orange-200 p-4 rounded-4xl flex items-center gap-3 animate-fade-in">
+            <div className="absolute -bottom-4 -left-2 sm:-left-16 bg-white/95 backdrop-blur-sm border border-orange-200 p-4 rounded-4xl flex items-center gap-3 animate-fade-in">
               <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange">
                 <PawPrint />
               </div>
