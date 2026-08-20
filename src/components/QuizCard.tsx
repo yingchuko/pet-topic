@@ -8,7 +8,7 @@ import { Button } from "./ui/Button";
 import { ProgressBar } from "./ui/ProgressBar";
 
 export const QuizCard = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const { quizAnswers, setQuizAnswer, resetQuiz } = useStore();
 
   const currentQuestion = QUIZ_QUESTIONS[currentStep] || QUIZ_QUESTIONS[0];
