@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { Product, CartItem } from "../types";
+import type { Product, CartItem, UserProfile, Order } from "../types";
+import { MOCK_PRODUCTS } from "../data/mockData";
 
 // 1. 定義 State 介面規範
 interface AppState {
@@ -8,10 +9,14 @@ interface AppState {
   cart: CartItem[];
   isCartOpen: boolean;
   quizAnswers: Record<number, number>;
+  selectedProduct: Product | null;
+  user: UserProfile | null;
+  orders: Order[];
 
   // --- 計算屬性 (Getters) ---
   getTotalItems: () => number;
   getSubtotal: () => number;
+  getRecommendedProducts: () => Product[];
 
   // --- 操作方法 (Actions) ---
   addToCart: (product: Product, quantity?: number) => void;
@@ -21,6 +26,9 @@ interface AppState {
   setCartOpen: (isOpen: boolean) => void;
   setQuizAnswer: (questionId: number, optionIndex: number) => void;
   resetQuiz: () => void;
+  setSelectedProduct: (product: Product | null) => void;
+  setUser: (user: UserProfile | null) => void;
+  createOrder: (shippingAddress: string) => Order | null;
 }
 
 // 2. 建立帶有 persist 機制的 Zustand Store
@@ -31,6 +39,16 @@ export const useStore = create<AppState>()(
       cart: [],
       isCartOpen: false,
       quizAnswers: {},
+      selectedProduct: null,
+      user: {
+        id: "usr-01",
+        name: "YingChu",
+        email: "user@example.com",
+        petName: "Mimi",
+        petType: "cat",
+        subscriptionStatus: "active",
+      },
+      orders: [],
 
       // --- 計算屬性 Getters ---
       getTotalItems: () => {
@@ -44,7 +62,21 @@ export const useStore = create<AppState>()(
         );
       },
 
-      // --- 購物車 Actions ---
+      getRecommendedProducts: () => {
+        const answers = get().quizAnswers;
+        if (Object.keys(answers).length < 3) return MOCK_PRODUCTS;
+
+        return [...MOCK_PRODUCTS].sort((a, b) => {
+          let score = 0;
+          if (answers[1] === 0 || answers[2] === 0)
+            score += b.moisture - a.moisture;
+          if (answers[3] === 2 && a.tags.includes("High Protein")) score -= 10;
+          if (answers[3] === 2 && b.tags.includes("High Protein")) score += 10;
+          return score;
+        });
+      },
+
+      // --- Actions ---
       addToCart: (product, quantity = 1) =>
         set((state) => {
           const existingIndex = state.cart.findIndex(
@@ -96,17 +128,45 @@ export const useStore = create<AppState>()(
         })),
 
       resetQuiz: () => set({ quizAnswers: {} }),
+
+      setSelectedProduct: (product) => set({ selectedProduct: product }),
+
+      setUser: (user) => set({ user }),
+
+      createOrder: (shippingAddress) => {
+        const cart = get().cart;
+        if (cart.length === 0) return null;
+
+        const newOrder: Order = {
+          id: `PT-${Date.now().toString().slice(-6)}`,
+          items: [...cart],
+          totalAmount: get().getSubtotal(),
+          shippingAddress,
+          createdAt: new Date().toISOString().split("T")[0],
+          status: "processing",
+        };
+
+        set((state) => ({
+          orders: [newOrder, ...state.orders],
+          cart: [],
+          isCartOpen: false,
+        }));
+
+        return newOrder;
+      },
     }),
     {
-      name: "cart", // localStorage 中的 key 名稱
-      storage: createJSONStorage(() => localStorage), // 指定儲存媒介為 localStorage
-
+      name: "pettopic-storage",
+      storage: createJSONStorage(() => localStorage),
       /**
        * partialize 白名單過濾
-       * 指定僅將 `cart` 寫入 localStorage。
-       * isCartOpen 與 quizAnswers 不在回傳物件中，因此重新整理時不會寫入/讀取。
+       * 僅持久化保存（localStorage）購物車、會員資料與歷史訂單。
        */
-      partialize: (state) => ({ cart: state.cart }),
+      partialize: (state) => ({
+        cart: state.cart,
+        user: state.user,
+        orders: state.orders,
+      }),
     },
   ),
 );

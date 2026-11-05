@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { ShoppingBag, Droplet } from "lucide-react";
-import { MOCK_PRODUCTS } from "../data/mockData";
+import { useState, useMemo } from "react";
+import { ShoppingBag, Droplet, Sparkles } from "lucide-react";
 import { useStore } from "../store/useStore";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
@@ -9,6 +8,18 @@ import { QuantityStepper } from "./ui/QuantityStepper";
 
 export const ProductList = () => {
   const addToCart = useStore((state) => state.addToCart);
+
+  // 取得 Store 中的函式與原始資料
+  const getRecommendedProducts = useStore(
+    (state) => state.getRecommendedProducts,
+  );
+  const quizAnswers = useStore((state) => state.quizAnswers);
+  const isQuizCompleted = Object.keys(quizAnswers).length >= 3;
+
+  // 使用 useMemo 快取推薦商品結果，當 quizAnswers 改變時才重新計算，避免無限迴圈
+  const recommendedProducts = useMemo(() => {
+    return getRecommendedProducts();
+  }, [getRecommendedProducts, quizAnswers]);
 
   // 儲存所有商品的暫選數量
   const [quantities, setQuantities] = useState<Record<string, number>>({});
@@ -24,17 +35,33 @@ export const ProductList = () => {
     });
   };
 
-  const handleAddToCart = (product: (typeof MOCK_PRODUCTS)[0]) => {
+  const handleAddToCart = (product: (typeof recommendedProducts)[0]) => {
     const qty = getQuantity(product.id);
-    for (let i = 0; i < qty; i++) {
-      addToCart(product);
-    }
+    addToCart(product, qty);
   };
 
   return (
     <section id="shop" className="container-layout py-12">
+      <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
+        <Badge icon={<Sparkles className="w-3.5 h-3.5" />}>
+          <span>
+            {isQuizCompleted ? "Tailored For Your Cat" : "Curated Nutrition"}
+          </span>
+        </Badge>
+        <h2 className="section-title">
+          {isQuizCompleted
+            ? "Recommended Based on Your Quiz"
+            : "Our Premium Menu"}
+        </h2>
+        <p className="section-subtitle">
+          {isQuizCompleted
+            ? "We've sorted these recipes to best match your cat's hydration and energy needs."
+            : "Explore our moisture-rich recipes designed to keep your feline thriving."}
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        {MOCK_PRODUCTS.map((product) => {
+        {recommendedProducts.map((product) => {
           const qty = getQuantity(product.id);
           return (
             <Card key={product.id} className="!p-0">
