@@ -8,6 +8,7 @@ import { QuantityStepper } from "./ui/QuantityStepper";
 
 export const ProductList = () => {
   const addToCart = useStore((state) => state.addToCart);
+  const setSelectedProduct = useStore((state) => state.setSelectedProduct);
 
   // 取得 Store 中的函式與原始資料
   const getRecommendedProducts = useStore(
@@ -66,7 +67,10 @@ export const ProductList = () => {
           return (
             <Card key={product.id} className="!p-0">
               <div>
-                <div className="relative aspect-4/3 rounded-t-4xl overflow-hidden mb-4">
+                <div
+                  onClick={() => setSelectedProduct(product)}
+                  className="relative aspect-4/3 rounded-t-4xl overflow-hidden mb-4 cursor-pointer"
+                >
                   <Badge
                     className="absolute top-4 left-4 !bg-cream"
                     icon={<Droplet className="w-3.5 h-3.5 fill-orange" />}
@@ -81,7 +85,10 @@ export const ProductList = () => {
                 </div>
 
                 <div className="p-6 sm:p-8 space-y-4">
-                  <div className="space-y-1.5">
+                  <div
+                    onClick={() => setSelectedProduct(product)}
+                    className="space-y-1.5 cursor-pointer"
+                  >
                     <h3 className="text-xl font-black text-slate-900 tracking-tight">
                       {product.name}
                     </h3>

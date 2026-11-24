@@ -9,7 +9,7 @@ export const MOCK_PRODUCTS: Product[] = [
     id: "prod-1",
     name: "Wild Salmon Paté",
     description:
-      "Silky salmon paté that keeps picky cats sipping hydration with every bite.",
+      "Silky salmon paté crafted to boost daily hydration and delight picky cats.",
     price: 3.2,
     moisture: 78,
     protein: 11.5,
@@ -20,21 +20,22 @@ export const MOCK_PRODUCTS: Product[] = [
       "Wild Catch Salmon",
       "Salmon Broth",
       "Chicken Liver",
-      "Essential Vitamins",
       "Taurine",
+      "Vitamin E",
     ],
     reviews: [
       {
         id: "rev-101",
         user: "Sarah K.",
         rating: 5,
-        comment: "My 4-year-old picky cat loves the silky texture!",
+        comment:
+          "My picky cat cleans the bowl every time with zero hesitation.",
       },
       {
         id: "rev-102",
         user: "David M.",
         rating: 4.8,
-        comment: "Great way to sneak extra water into his diet.",
+        comment: "Smooth texture and a great way to add extra daily moisture.",
       },
     ],
   },
@@ -42,7 +43,7 @@ export const MOCK_PRODUCTS: Product[] = [
     id: "prod-2",
     name: "Free-Run Chicken",
     description:
-      "Tender shredded chicken in gravy — an everyday favorite for growing kitties.",
+      "Tender shredded chicken in savory broth made for active everyday meals.",
     price: 2.8,
     moisture: 76,
     protein: 13.0,
@@ -51,24 +52,33 @@ export const MOCK_PRODUCTS: Product[] = [
     image: ChickenImage,
     ingredients: [
       "Free-Run Chicken",
-      "Chicken Bone Broth",
-      "Pumpkin",
-      "Minerals",
+      "Chicken Broth",
+      "Pumpkin Purée",
       "Taurine",
+      "Zinc Sulfate",
     ],
     reviews: [
       {
         id: "rev-201",
         user: "Emily R.",
         rating: 5,
-        comment: "High protein and clean ingredient list. Highly recommend!",
+        comment:
+          "Clean ingredient list and great protein balance for my kitten.",
+      },
+      {
+        id: "rev-202",
+        user: "Jason W.",
+        rating: 4.9,
+        comment:
+          "Shredded texture looks fresh and keeps energy steady all day.",
       },
     ],
   },
   {
     id: "prod-3",
     name: "Line-Caught Tuna",
-    description: "Flaky tuna in broth for maximum hydration and minimal fuss.",
+    description:
+      "Light flaky tuna in rich broth designed for high hydration and easy eating.",
     price: 2.5,
     moisture: 82,
     protein: 10.0,
@@ -76,17 +86,25 @@ export const MOCK_PRODUCTS: Product[] = [
     tags: ["Pouch", "Low Cal", "Sensitive Stomach"],
     image: TunaImage,
     ingredients: [
-      "Line-Caught Skipjack Tuna",
+      "Line-Caught Tuna",
       "Tuna Broth",
-      "Vitamin E Supplement",
-      "Fructooligosaccharide",
+      "Tapioca Starch",
+      "Taurine",
+      "Vitamin E",
     ],
     reviews: [
       {
         id: "rev-301",
         user: "Alex T.",
-        rating: 4.9,
-        comment: "Extremely high moisture content, awesome for urinary care.",
+        rating: 5,
+        comment:
+          "High moisture content makes it easy to keep my cat well hydrated.",
+      },
+      {
+        id: "rev-302",
+        user: "Hannah C.",
+        rating: 4.8,
+        comment: "Light on calories and gentle on my cat's sensitive stomach.",
       },
     ],
   },
@@ -94,26 +112,33 @@ export const MOCK_PRODUCTS: Product[] = [
     id: "prod-4",
     name: "Farm-Raised Duck",
     description:
-      "A novel-protein recipe crafted for cats with delicate digestion.",
+      "Single-protein duck recipe balanced for delicate digestion and steady taste.",
     price: 3.5,
     moisture: 74,
     protein: 12.0,
     calories: 95,
-    tags: ["Pouch", "Limited Ingredient"],
+    tags: ["Pouch", "Limited Ingredient", "Hypoallergenic"],
     image: DuckImage,
     ingredients: [
       "Farm-Raised Duck",
       "Duck Broth",
-      "Tapioca Starch",
-      "Zinc Sulfate",
+      "Sweet Potato",
       "Taurine",
+      "Choline Chloride",
     ],
     reviews: [
       {
         id: "rev-401",
         user: "Jessica L.",
         rating: 5,
-        comment: "Perfect for my cat's food allergies. Zero stomach troubles!",
+        comment:
+          "Works wonderfully for food sensitivities with zero upset stomach.",
+      },
+      {
+        id: "rev-402",
+        user: "Ryan P.",
+        rating: 4.9,
+        comment: "Rich flavor that even hesitant eaters warm up to quickly.",
       },
     ],
   },

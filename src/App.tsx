@@ -4,6 +4,7 @@ import { QuizCard } from "./components/QuizCard";
 import { NutritionChart } from "./components/NutritionChart";
 import { ProductList } from "./components/ProductList";
 import { CartDrawer } from "./components/CartDrawer";
+import { ProductDetail } from "./components/ProductDetail";
 import { Footer } from "./components/Footer";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <ProductList />
       </main>
       <CartDrawer />
+      <ProductDetail />
       <Footer />
     </div>
   );
